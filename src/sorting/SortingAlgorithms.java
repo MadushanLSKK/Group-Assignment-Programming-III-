@@ -25,4 +25,23 @@ public class SortingAlgorithms {
         }
     }
 
+    // ==================================================================
+    // 2. SHELL SORT            Time: about O(n^1.5) with this gap sequence
+    //    Insertion sort that first compares elements far apart (a big "gap"),
+    //    then makes the gap smaller until it is 1.
+    // ==================================================================
+    public static void shellSort(double[] a) {
+        for (int gap = a.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < a.length; i++) {
+                double key = a[i];
+                int j = i;
+                while (j >= gap && a[j - gap] > key) {
+                    a[j] = a[j - gap];  // shift by 'gap' positions instead of 1
+                    j -= gap;
+                }
+                a[j] = key;
+            }
+        }
+    }
+
 }
