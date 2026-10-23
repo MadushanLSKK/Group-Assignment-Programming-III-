@@ -44,4 +44,42 @@ public class SortingAlgorithms {
         }
     }
 
+
+    // ==================================================================
+    // 3. MERGE SORT            Time: O(n log n)
+    //    Split the array in half, sort each half, then merge the two sorted halves.
+    // ==================================================================
+    public static void mergeSort(double[] a) {
+        if (a.length < 2) return;
+        double[] temp = new double[a.length];     // helper array used while merging
+        mergeSort(a, temp, 0, a.length - 1);
+    }
+
+    private static void mergeSort(double[] a, double[] temp, int left, int right) {
+        if (left >= right) return;                // 0 or 1 element is already sorted
+        int middle = left + (right - left) / 2;
+        mergeSort(a, temp, left, middle);         // sort left half
+        mergeSort(a, temp, middle + 1, right);    // sort right half
+        merge(a, temp, left, middle, right);      // combine them
+    }
+
+    private static void merge(double[] a, double[] temp, int left, int middle, int right) {
+        for (int k = left; k <= right; k++) {
+            temp[k] = a[k];                       // copy the part we are merging
+        }
+        int i = left;                             // position in left half
+        int j = middle + 1;                       // position in right half
+        for (int k = left; k <= right; k++) {
+            if (i > middle) {
+                a[k] = temp[j++];                 // left half finished
+            } else if (j > right) {
+                a[k] = temp[i++];                 // right half finished
+            } else if (temp[i] <= temp[j]) {
+                a[k] = temp[i++];                 // smaller value comes first
+            } else {
+                a[k] = temp[j++];
+            }
+        }
+    }
+
 }
