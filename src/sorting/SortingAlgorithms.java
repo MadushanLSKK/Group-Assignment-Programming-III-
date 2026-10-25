@@ -82,4 +82,38 @@ public class SortingAlgorithms {
         }
     }
 
+    // ==================================================================
+    // 4. QUICK SORT            Time: O(n log n) on average
+    //    Pick a pivot (the middle element). Move smaller values to its left and
+    //    bigger values to its right. Then sort the left and right parts the same way.
+    // ==================================================================
+    public static void quickSort(double[] a) {
+        quickSort(a, 0, a.length - 1);
+    }
+
+    private static void quickSort(double[] a, int low, int high) {
+        if (low >= high) return;
+        double pivot = a[low + (high - low) / 2]; // middle pivot (good for sorted data too)
+        int i = low;
+        int j = high;
+        while (i <= j) {
+            while (a[i] < pivot) i++;             // find a value that belongs on the right
+            while (a[j] > pivot) j--;             // find a value that belongs on the left
+            if (i <= j) {
+                swap(a, i, j);
+                i++;
+                j--;
+            }
+        }
+        quickSort(a, low, j);                     // sort the left part
+        quickSort(a, i, high);                    // sort the right part
+    }
+
+    // ------------------------------------------------------------------
+    private static void swap(double[] a, int i, int j) {
+        double temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
 }
