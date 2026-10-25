@@ -116,4 +116,38 @@ public class SortingAlgorithms {
         a[j] = temp;
     }
 
+
+    // ==================================================================
+    // 5. HEAP SORT             Time: O(n log n)
+    //    Turn the array into a "max-heap" (biggest value at the top), then
+    //    repeatedly move the biggest value to the end of the array.
+    // ==================================================================
+    public static void heapSort(double[] a) {
+        int n = a.length;
+
+        // Step 1: build the max-heap (start from the last parent node)
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(a, n, i);
+        }
+        // Step 2: move the largest value to the end, then fix the heap
+        for (int end = n - 1; end > 0; end--) {
+            swap(a, 0, end);
+            heapify(a, end, 0);
+        }
+    }
+
+    /** Pushes a[i] down the heap until both of its children are smaller. */
+    private static void heapify(double[] a, int size, int i) {
+        while (true) {
+            int largest = i;
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+            if (left < size && a[left] > a[largest]) largest = left;
+            if (right < size && a[right] > a[largest]) largest = right;
+            if (largest == i) return;             // heap rule already true
+            swap(a, i, largest);
+            i = largest;                          // keep going down
+        }
+    }
+
 }
