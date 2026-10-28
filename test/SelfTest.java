@@ -13,6 +13,21 @@ public class SelfTest {
         System.exit(failed == 0 ? 0 : 1);
     }
 
+    // ---------- COMPARES  ALGORITHM WITH Arrays.sort ----------
+    static boolean sorts(String name, double[] input) {
+        double[] expected = input.clone();
+        Arrays.sort(expected);                 // trusted answer from Java
+        double[] actual = input.clone();
+        switch (name) {
+            case "Insertion Sort": SortingAlgorithms.insertionSort(actual); break;
+            case "Shell Sort":     SortingAlgorithms.shellSort(actual);     break;
+            case "Merge Sort":     SortingAlgorithms.mergeSort(actual);     break;
+            case "Quick Sort":     SortingAlgorithms.quickSort(actual);     break;
+            default:               SortingAlgorithms.heapSort(actual);
+        }
+        return Arrays.equals(expected, actual);   // true if your result matches
+    }
+
     // ---------- HELPERS USED BY THE SORTING TESTS ----------
     static double[] random(Random r, int n, int bound) {
         double[] a = new double[n];
