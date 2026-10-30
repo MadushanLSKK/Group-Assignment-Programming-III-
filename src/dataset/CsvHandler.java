@@ -78,7 +78,7 @@ public class CsvHandler {
             throw new Exception("This file has no numeric columns, so there is nothing to sort.");
         }
 
-        // Everything is fine, so store the data (done last so a failed load keeps the old data)
+
         headers = newHeaders;
         rows = newRows;
         numericColumn = newNumeric;
@@ -86,7 +86,8 @@ public class CsvHandler {
 
 
     // 2. SPLIT ONE LINE INTO CELLS
-    //    Handles quoted cells such as:  1,"Perera, Nimal",50.5
+    //    Example line:  1,"Perera, Nimal",85000
+    //    Result:        3 cells ->  1  |  Perera, Nimal  |  85000
 
     private String[] splitLine(String line) {
         List<String> cells = new ArrayList<String>();
@@ -132,7 +133,7 @@ public class CsvHandler {
         }
         return result;
     }
-
+    // method isNumber tries to change the text into a number. If it fails, the text is not a number.
     private boolean isNumber(String text) {
         try {
             double d = Double.parseDouble(text);
@@ -157,6 +158,7 @@ public class CsvHandler {
         if (col < 0 || col >= headers.size()) {
             throw new Exception("Please select a column first.");
         }
+        //copies the numbers into an array. This array goes to the sorting algorithms.
         String name = headers.get(col);
 
         if (!numericColumn[col]) {
