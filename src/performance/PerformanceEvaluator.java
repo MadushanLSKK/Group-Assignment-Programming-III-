@@ -12,10 +12,6 @@ import sorting.SortingAlgorithms;
  *
  * Runs a sorting algorithm on COPIES of the data, measures how long it takes,
  * checks that the result is really sorted, and finds the fastest algorithm.
- *
- * Why several runs? One timing on a normal computer is "noisy" (background programs,
- * Java warm-up, memory cleanup). So each algorithm is run several times and the
- * MEDIAN (middle) time is used. This keeps the ranking stable from run to run.
  */
 public class PerformanceEvaluator {
 
@@ -70,10 +66,7 @@ public class PerformanceEvaluator {
         return new Result(algorithm, median, correct, times.size());
     }
 
-    /**
-     * Java compiles code while it runs, so the first run of a method is slower.
-     * A few runs on a small sample first make the timings fair.
-     */
+
     private static void warmUp(String algorithm, double[] original) {
         int size = Math.min(original.length, 1000);
         for (int i = 0; i < 3; i++) {
