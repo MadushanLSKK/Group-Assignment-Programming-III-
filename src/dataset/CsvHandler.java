@@ -8,18 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * File upload and dataset handling.
- *
- * What this class does:
- *   1. Loads a .csv file and checks that it is valid.
- *   2. Keeps the column names (headers) and the rows.
- *   3. Finds which columns are numeric (only numeric columns can be sorted).
- *   4. Gives the values of one numeric column as a double[] for the sorting step.
- *
- * Every problem is reported by throwing an Exception with a clear message,
- * and the GUI shows that message to the user.
- */
+
+// File upload and dataset handling.
+
 public class CsvHandler {
 
     private List<String> headers = new ArrayList<String>();   // column names
@@ -27,9 +18,9 @@ public class CsvHandler {
     private boolean[] numericColumn = new boolean[0];         // numericColumn[i] = is column i numeric?
     private int skippedCells = 0;                             // empty/text cells ignored in the last column
 
-    // ------------------------------------------------------------------
+
     // 1. LOAD THE FILE
-    // ------------------------------------------------------------------
+
     public void loadFile(File file) throws Exception {
 
         // --- Validate the file first (invalid file uploads) ---
@@ -93,10 +84,10 @@ public class CsvHandler {
         numericColumn = newNumeric;
     }
 
-    // ------------------------------------------------------------------
+
     // 2. SPLIT ONE LINE INTO CELLS
     //    Handles quoted cells such as:  1,"Perera, Nimal",50.5
-    // ------------------------------------------------------------------
+
     private String[] splitLine(String line) {
         List<String> cells = new ArrayList<String>();
         StringBuilder current = new StringBuilder();
@@ -122,10 +113,10 @@ public class CsvHandler {
         return cells.toArray(new String[0]);
     }
 
-    // ------------------------------------------------------------------
+
     // 3. FIND THE NUMERIC COLUMNS
     //    A column is numeric if at least 90% of its non-empty cells are numbers.
-    // ------------------------------------------------------------------
+
     private boolean[] findNumericColumns(List<String[]> data, int columnCount) {
         boolean[] result = new boolean[columnCount];
         for (int col = 0; col < columnCount; col++) {
@@ -156,9 +147,9 @@ public class CsvHandler {
         return col < row.length ? row[col].trim() : "";
     }
 
-    // ------------------------------------------------------------------
+
     // 4. GET THE VALUES OF ONE COLUMN (used by the sorting step)
-    // ------------------------------------------------------------------
+
     public double[] getColumnValues(int col) throws Exception {
         if (rows.isEmpty()) {
             throw new Exception("Please upload a CSV file first.");
@@ -193,9 +184,9 @@ public class CsvHandler {
         return Arrays.copyOf(values, count);
     }
 
-    // ------------------------------------------------------------------
+
     // Simple getters used by the GUI
-    // ------------------------------------------------------------------
+
     public List<String> getHeaders()      { return headers; }
 
     public List<String[]> getRows()       { return rows; }
