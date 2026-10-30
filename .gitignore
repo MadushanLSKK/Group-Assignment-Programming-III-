@@ -1,0 +1,28 @@
+# ---------- IntelliJ IDEA ----------
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# ---------- Java build output ----------
+*.class
+*.log
+hs_err_pid*
+
+# ---------- Other editors ----------
+.vscode/
+.classpath
+.project
+.settings/
+nbproject/
+
+# ---------- Operating system files ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- Temporary files ----------
+*.tmp
+*.bak
+*~
